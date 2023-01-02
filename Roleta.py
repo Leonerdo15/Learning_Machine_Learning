@@ -2,6 +2,9 @@ import random
 
 
 def generate_n_random_numbers(quantity):
+    if quantity == 0:
+        return [random.randint(0, 36) for _ in range(quantity)]
+
     return [random.randint(0, 36) for _ in range(quantity)]
 
 
