@@ -5,26 +5,11 @@ filmes = pd.read_csv("ml-latest/movies.csv")
 filmes.columns = ["filmeId", "titulo", "generos"]
 filmes = filmes.set_index("filmeId")
 
-# notas = pd.read_csv("ml-latest/ratings.csv")
-# notas.columns = ["usuarioId", "filmeId", "nota", "momento"]
-#
-# total_de_votos = notas["filmeId"].value_counts()
-#
-# filmes["total_de_votos"] = total_de_votos
-#
-# notas_medias = notas.groupby("filmeId").mean().nota
-# filmes["notas_medias"] = notas_medias
-
-# filmes_com_mais_de_50_votos = filmes.query("total_de_votos >= 50").sort_values("notas_medias", ascending=False)
-#
-# notas = notas.set_index("filmeId").loc[filmes_com_mais_de_50_votos.index]
-# notas = notas.reset_index()
-
 notas_10 = pd.read_csv("teste_10.csv")
 notas_20 = pd.read_csv("teste_20.csv")
-notas = pd.read_csv("teste_30.csv")
+notas_30 = pd.read_csv("teste_30.csv")
 notas_40 = pd.read_csv("teste_40.csv")
-notas_50 = pd.read_csv("teste_50.csv")
+notas = pd.read_csv("teste_50.csv")
 notas_60 = pd.read_csv("teste_60.csv")
 notas_70 = pd.read_csv("teste_70.csv")
 notas_80 = pd.read_csv("teste_80.csv")
@@ -33,7 +18,7 @@ notas_100 = pd.read_csv("teste_100.csv")
 
 
 def distancia_vetores(a, b):
-    return np.linalg.norm(a - b)
+    return np.linalg.norm(a - b) / len(a)
 
 
 def notas_do_usuario_completa(usuario):
@@ -103,33 +88,14 @@ def sugere_para(voce, k_mais_proximos=10, n=None):
 
 
 if __name__ == '__main__':
+    number_users = 600
 
-    # user_id = 610
-    #
-    # notas_user_completo = notas_do_usuario_completa(user_id)
-    # notas_user = notas_do_usuario(user_id)
-    # sugere_user = sugere_para(user_id)
-    #
-    # difrenca = notas_user_completo.index.difference(notas_user.index)
-    #
-    # # print(sugere_user.sort_values("filmeId", ascending=True).head(15))
-    # # print(notas_user.sort_values("filmeId", ascending=True).head(15))
-    #
-    # # how many filmeId are in the sugestions that are in notas_user
-    # # print(sugere_user.index.intersection(notas_user_completo.index))
-    #
-    # print(sugere_user.sort_values("filmeId", ascending=True))
-    # print(difrenca)
-    #
-    # # how many filmeId are in the sugere_user that are in difrenca
-    # print(len(sugere_user.index.intersection(difrenca)))
-
-    for i in range(1, 601):
+    for i in range(1, number_users+1):
         user_id = i
 
         notas_user_completo = notas_do_usuario_completa(user_id)
         notas_user = notas_do_usuario(user_id)
-        sugere_user = sugere_para(user_id)
+        sugere_user = sugere_para(user_id, n=number_users)
 
         difrenca = notas_user_completo.index.difference(notas_user.index)
 
@@ -140,36 +106,5 @@ if __name__ == '__main__':
             print(f"User {i} ->  \033[92m{len(sugere_user.index.intersection(difrenca))}\033[0m")
 
         # Save the i and the len(sugere_user.index.intersection(difrenca)) in csv file
-        with open('data/result_30_K10_N.csv', 'a') as f:
+        with open(f'data1/result_50_K10_N{number_users}.csv', 'a') as f:
             f.write(f"{i},{len(sugere_user.index.intersection(difrenca))}\n")
-
-
-
-
-"""
-# print(notas_do_usuario(1))
-    # print(distancia_de_usuarios(1, 4))
-    # print(distancia_de_usuarios(1,2))
-    # print(distancia_de_todos(1)[:5])
-    # print(distancia_de_usuarios(1, 4))
-    # print(sugere_para(1))
-    # print(mais_proximos_de(1, n_mais_proximos = 2, n=300))
-    # print(sugere_para(1, n=300))
-    # print(sugere_para(1))
-
-    # print(notas.head())
-
-    # print(sugere_para(1, n=500))
-
-    # some all notes of user 1 and each note goes to the power of 2
-
-    # notas1 = notas_do_usuario(1)
-    # notas2 = notas_do_usuario(2)
-    #
-    # juncao = notas1.join(notas2, lsuffix="_esquerda", rsuffix="_direita").dropna()
-    #
-    # print(juncao)
-
-    # print(len(notas_do_usuario(1).apply(lambda nota: nota ** 2)))
-    # print(len(notas_do_usuario(2).apply(lambda nota: nota ** 2)))
-"""
