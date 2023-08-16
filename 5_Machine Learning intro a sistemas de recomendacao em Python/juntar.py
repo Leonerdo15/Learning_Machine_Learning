@@ -5,15 +5,15 @@ filmes = pd.read_csv("ml-latest/movies.csv")
 filmes.columns = ["filmeId", "titulo", "generos"]
 filmes = filmes.set_index("filmeId")
 
-notas_10 = pd.read_csv("teste_10.csv")
-notas_20 = pd.read_csv("teste_20.csv")
-notas_30 = pd.read_csv("teste_30.csv")
-notas_40 = pd.read_csv("teste_40.csv")
-notas = pd.read_csv("teste_50.csv")
-notas_60 = pd.read_csv("teste_60.csv")
-notas_70 = pd.read_csv("teste_70.csv")
-notas_80 = pd.read_csv("teste_80.csv")
-notas_90 = pd.read_csv("teste_90.csv")
+notas_10 = pd.read_csv("Dados para treino/teste_10.csv")
+notas_20 = pd.read_csv("Dados para treino/teste_20.csv")
+notas_30 = pd.read_csv("Dados para treino/teste_30.csv")
+notas_40 = pd.read_csv("Dados para treino/teste_40.csv")
+notas = pd.read_csv("Dados para treino/teste_50.csv")
+notas_60 = pd.read_csv("Dados para treino/teste_60.csv")
+notas_70 = pd.read_csv("Dados para treino/teste_70.csv")
+notas_80 = pd.read_csv("Dados para treino/teste_80.csv")
+notas_90 = pd.read_csv("Dados para treino/teste_90.csv")
 notas_100 = pd.read_csv("teste_100.csv")
 
 
@@ -88,7 +88,7 @@ def sugere_para(voce, k_mais_proximos=10, n=None):
 
 
 if __name__ == '__main__':
-    number_users = 600
+    number_users = 200
 
     for i in range(1, number_users+1):
         user_id = i
